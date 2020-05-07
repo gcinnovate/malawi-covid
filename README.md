@@ -1,5 +1,5 @@
-CPMR
-=====
+COVID-19 SMS app
+=================
 The UNICEF/MoH Malawi COVID-19 Response SMS solution backend application with the RapidPro webhook endpoints.
 
 How to Set up the development server
