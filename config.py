@@ -19,6 +19,7 @@ class Config:
     REDIS_URL = CELERY_RESULT_BACKEND = os.environ.get('REDIS_URL')
     CELERY_BROKER_URL = os.environ.get('REDIS_URL')
     CELERY_RESULT_BACKEND = os.environ.get('REDIS_URL')
+    GLOBAL_STATS_ENDPOINT = os.environ.get('GLOBAL_STATS_ENDPOINT', 'https://api.covid19api.com/summary')
     SQLALCHEMY_ENGINE_OPTIONS = {
         "pool_pre_ping": True,
         "pool_recycle": 300,
@@ -90,6 +91,7 @@ INDICATOR_THRESHOLD = {
 # Flow names that use a month generated from reporting date
 AUTO_MONTH_FLOWS = []
 INDICATORS_TO_SWAP_KEYVALS = ['referredfrom']
+GLOBAL_STATS_ENDPOINT = 'https://api.covid19api.com/summary'
 try:
     from local_config import *
 except ImportError:

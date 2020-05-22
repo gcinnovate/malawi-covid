@@ -11,6 +11,7 @@ from app.models import (
     Location, LocationTree, User, Role,
     FlowData, SummaryCases, NotifyingParties)
 import datetime
+import requests
 from flask import current_app
 from sqlalchemy.sql import text
 from getpass import getpass
@@ -50,6 +51,12 @@ def before_first_request_func():
             global_notifying_parties.append(p.msisdn)
     redis_client.rapid_response_team = rapid_response_team
     redis_client.global_notifying_parties = global_notifying_parties
+    statsUrl = os.environ.get('GLOBAL_STATS_ENDPOINT', 'https://api.covid19api.com/summary')
+    try:
+        resp = requests.get(statsUrl)
+        redis_client.global_stats = resp.json()['Global']
+    except:
+        redis_client.global_stats = {}
     # print(global_notifying_parties)
     # print(rapid_response_team)
     # print("This function will run once")
