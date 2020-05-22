@@ -1,5 +1,5 @@
-CPMR
-=====
+COVID-19 SMS app
+=================
 The UNICEF/MoH Malawi COVID-19 Response SMS solution backend application with the RapidPro webhook endpoints.
 
 How to Set up the development server
@@ -20,7 +20,7 @@ $ . env/bin/activate
 $ pip install -r requirements.txt
 
 4. Configuration
-The configurations for the CPMR application are made using environment variables.
+The configurations for the application are made using environment variables.
 Refer to the config.py file for the environment variables to set.
 
 $ export FLASK_APP=covid.py
