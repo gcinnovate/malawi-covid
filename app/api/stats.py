@@ -23,12 +23,14 @@ def stats():
         msg = msg.format(**gstats)
         print(msg)
         redis_client.global_stats = gstats
-        return jsonify({'message': msg})
+        # return jsonify({'message': msg})
+        return jsonify(gstats)
     except:
         gstats = redis_client.global_stats
         if gstats:
             print(">>>", gstats)
             msg.format(**gstats)
-            return jsonify({'message': msg})
+            # return jsonify({'message': msg})
+            return jsonify(gstats)
 
     return jsonify({'message': ''})
