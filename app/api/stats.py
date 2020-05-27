@@ -33,4 +33,4 @@ def stats():
             # return jsonify({'message': msg})
             return jsonify(gstats)
 
-    return jsonify({'message': ''})
+    return jsonify(redis_client.global_stats)
