@@ -125,6 +125,32 @@ def deploy():
     upgrade()
 
 
+@app.cli.command("save-statistics")
+def save_statistics():
+    click.echo("Fetching global and local stats!")
+    statsUrl = os.environ.get('GLOBAL_STATS_ENDPOINT', 'https://api.covid19api.com/summary')
+    try:
+        resp = requests.get(statsUrl)
+        stats_resp = resp.json()
+        if 'Global' in stats_resp:
+            stats = {
+                'global': stats_resp['Global']
+            }
+            for c in stats_resp['Countries']:
+                if c['Country'] == 'Malawi':
+                    stats['local'] = c
+            record = FlowData.query.filter_by(report_type='stats').first()
+            if record:
+                record.values = stats
+            else:
+                db.session.add(
+                    FlowData(report_type='stats', values=stats))
+            db.session.commit()
+    except Exception as e:
+        click.echo("Error readings stats ", str(e))
+    click.echo("Done global and local stats!")
+
+
 @app.cli.command("create-user")
 def createuser():
     username = input("Enter Username: ")
