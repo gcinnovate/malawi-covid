@@ -5,4 +5,5 @@
 
 cd /var/www/malawi-covid
 source /var/www/envs/malawi-covid/bin/activate
+source .env
 flask save-statistics
