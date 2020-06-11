@@ -38,6 +38,6 @@ def notify():
     recipients_2 = [i[0] for i in global_notifying_parties]
 
     recipients.extend(recipients_2)
-    print(recipients, message)
-    # send_sms_notification.delay(message, recipients)
+    # print(recipients, message)
+    send_sms_notification.delay(message, recipients)
     return jsonify({'message': 'success'})
