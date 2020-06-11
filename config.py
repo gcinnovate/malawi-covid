@@ -66,7 +66,7 @@ CASE_MESSAGE_TEMPLATE = (
 INDICATORS = {
     'covid': [
         'month', 'year', 'name', 'dob', 'sex', 'nationality', 'district', 'address',
-        'status',
+        'status', 'has_cough', 'has_fever', 'has_shortness_of_breath'
     ]
 }
 
@@ -92,6 +92,44 @@ INDICATOR_THRESHOLD = {
 AUTO_MONTH_FLOWS = []
 INDICATORS_TO_SWAP_KEYVALS = ['referredfrom']
 GLOBAL_STATS_ENDPOINT = 'https://api.covid19api.com/summary'
+
+# DHIS 2 Tracker Program Settings
+DHIS2_TRACKER_PROGRAM_CONF = {
+        'program': 'gxl0RpntDog',
+        'trackedEntityType': 'y1bU1cX2XyL', # Person
+        'attributes': {
+            'firstname': 'MABBsj6O2Un',
+            'lastname': 'MVgw7bPZc0Z',
+            'dob': 'NI0QRzJvQ0k',
+            'district': 'xuYnznJr6kT',
+            'sex': 'EDjTF6dn75s',  # Gender
+            'address': 'FK2vvK7Po6u',  # Physical Addree
+            'msisdn': 'mJLeZibUwXp',  # Phone Number
+            'nationality': 'vSMq15P3jLx',
+        },
+        'stages': {
+            'signs_and_symptoms': {
+                'uid': 'z4twoWCFI4h',
+                'dataelements': {
+                    'has_cough': 'Yh5KOJj8l7p',
+                    'has_fever': 'EWZcuvPOrJF',
+                    'has_shortness_of_breath': 'fyzp8BpsPMl',
+                }
+            },
+
+        },
+}
+USE_DISPATCHER2 = False
+DISPATCHER2_DATABASE_URI = "postgresql://postgres:postgres@localhost:5431/dispatcher2"
+# The names for covid source and destination apps in dispatcher2
+DISPATCHER2_SOURCE_APP = 'malawi_covid'  # source app
+DISPATCHER2_DHIS2_TEI_APP = 'dhis2_malawi_tei' # destination for trackedEntityInstance
+DISPATCHER2_DHIS2_EVENTS_APP = 'dhis2_malawi_event'  # destination for Tracker event
+
+DHIS2_USERNAME = 'admin'
+DHIS2_PASSWORD = 'district'
+DHIS2_TEI_ENDPOINT = 'http://localhost:8080/api/trackedEntityInstances'
+DHIS2_EVENTS_ENDPOINT = 'http://localhost:8080/api/events'
 try:
     from local_config import *
 except ImportError:

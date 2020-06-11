@@ -55,6 +55,7 @@ class Location(db.Model, BaseNestedSets):
     id = db.Column(db.Integer, primary_key=True)
     tree_id = db.Column(db.Integer, db.ForeignKey('locationtree.id'))
     code = db.Column(db.String(64), index=True, unique=True)
+    dhis2id = db.Column(db.String(32), index=True, unique=True)
     name = db.Column(db.String(64), index=True)
     iso_id = db.Column(db.String(8), index=True)
     longitude = db.Column(db.String())
@@ -70,6 +71,7 @@ class FlowData(db.Model, TimeStampMixin):
     district = db.Column(db.Integer, db.ForeignKey('locations.id'))
     report_type = db.Column(db.String(), index=True)
     msisdn = db.Column(db.String(), index=True)
+    instanceid = db.Column(db.String(32), index=True)  # DHIS trackedEntityInstance UID
     month = db.Column(db.String(), index=True)
     year = db.Column(db.Integer, index=True)
     values = db.Column(JSONB, index=True)

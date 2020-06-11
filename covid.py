@@ -37,7 +37,7 @@ def before_first_request_func():
     districts = {}
     rapid_response_team = {}  # Each district name will be a key with a list of numbers a value
     for l in locs:
-        districts[l.name] = {'id': l.id, 'parent_id': l.parent_id}
+        districts[l.name] = {'id': l.id, 'parent_id': l.parent_id, 'uid': l.dhis2id}
         rapid_response_team[l.name] = []
 
     redis_client.districts = districts
