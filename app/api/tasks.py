@@ -24,13 +24,14 @@ def save_flowdata(
         request_args, request_json, districts):
     msisdn = request_args.get('msisdn')
     report_type = request_args.get('report_type')
-    district = request_args.get('district').title()
     if not request_json:
         logger.info("EMPTY Post Data from RapidPro! [Report: {0}, MSISDN: {1}]".format(report_type, msisdn))
         return
 
     flowdata = get_indicators_from_rapidpro_results(
         request_json['results'], INDICATORS, report_type)
+    # get district from flowdata
+    district = flowdata.get('district').title()
     month = datetime.now().month
     if report_type in ('covid', 'reg'):
         year = datetime.now().year
