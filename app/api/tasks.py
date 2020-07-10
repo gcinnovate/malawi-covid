@@ -37,6 +37,8 @@ def save_flowdata(
     date_of_birth = flowdata.get('dob', '').split('T')[0]
     flowdata['dob'] = date_of_birth
 
+    nationality = flowdata.get('nationality', '')
+
     month = datetime.now().month
     if report_type in ('covid', 'reg'):
         year = datetime.now().year
@@ -80,6 +82,9 @@ def save_flowdata(
                 logger.info('DB ERROR: [COVID] [MSISDN: {0}, District: {1}, [MONTH: {2}]'.format(
                     msisdn, district, month_str))
 
+            # change Malawian to AAA before creating trackedEntityInstance
+            if nationality == 'Malawian':
+                flowdata['nationality'] = 'AAA'
             # Queue for DHIS 2 submission to create a TEI
             orgUnitId = ids['uid']
             payload = compose_tracked_entity_instance_payload(flowdata, orgUnitId)
