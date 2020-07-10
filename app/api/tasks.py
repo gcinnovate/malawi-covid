@@ -32,6 +32,11 @@ def save_flowdata(
         request_json['results'], INDICATORS, report_type)
     # get district from flowdata
     district = flowdata.get('district').title()
+
+    # normalize date
+    date_of_birth = flowdata.get('dob', '').split('T')[0]
+    flowdata['dob'] = date_of_birth
+
     month = datetime.now().month
     if report_type in ('covid', 'reg'):
         year = datetime.now().year
