@@ -131,7 +131,7 @@ def save_flowdata(
                         print(resp.json())
 
                 except Exception as e:
-                    logger.info("Trouble Submitting to DHIS 2: [URL:{0}][ERROR: {}]".format(
+                    logger.info("Trouble Submitting to DHIS 2: [URL:{0}][ERROR: {1}]".format(
                         url, str(e)))
 
         logger.info('Done processing flow values')
