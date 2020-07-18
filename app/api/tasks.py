@@ -32,6 +32,7 @@ def save_flowdata(
         request_json['results'], INDICATORS, report_type)
     # get district from flowdata
     district = flowdata.get('district').title()
+    flowdata['district'] = district
 
     # normalize date
     date_of_birth = flowdata.get('dob', '').split('T')[0]
@@ -154,6 +155,7 @@ def send_sms_notification(message, recipients=[]):
         'text': message
     }
     post_data = json.dumps(params)
+    print(post_data)
     try:
         requests.post(broadcasts_endpoint, post_data, headers={
             'Content-type': 'application/json',
