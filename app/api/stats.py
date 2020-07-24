@@ -13,11 +13,13 @@ def stats():
 
     try:
         stats_record = FlowData.query.filter_by(report_type='stats').first()
-        if stats_record:
+        print(type(stats_record.values))
+        stats = stats_record.values
+        if stats:
             if isGlobal == 'true':
-                return jsonify(stats_record['global'])
+                return jsonify(stats['global'])
             else:
-                return jsonify(stats_record['local'])
+                return jsonify(stats['local'])
         # resp = requests.get(GLOBAL_STATS_ENDPOINT)
         # stats = resp.json()
         # gstats = stats.get('Global')
@@ -27,13 +29,13 @@ def stats():
         # redis_client.global_stats = gstats
         # # return jsonify({'message': msg})
         # return jsonify(gstats)
-    except:
+    except Exception as e:
         # gstats = redis_client.global_stats
         # if gstats:
         #     print(">>>", gstats)
         #     msg.format(**gstats)
         #     # return jsonify({'message': msg})
         #     return jsonify(gstats)
-        pass
+        print("Failed to get stats ", str(e))
 
     return jsonify(redis_client.global_stats)
