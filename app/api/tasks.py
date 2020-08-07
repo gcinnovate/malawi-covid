@@ -30,6 +30,10 @@ def save_flowdata(
 
     flowdata = get_indicators_from_rapidpro_results(
         request_json['results'], INDICATORS, report_type)
+
+    if 'msisdn' not in flowdata:
+        flowdata['msisdn'] = msisdn
+
     # get district from flowdata
     district = flowdata.get('district').title()
     flowdata['district'] = district

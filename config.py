@@ -66,7 +66,7 @@ CASE_MESSAGE_TEMPLATE = (
 INDICATORS = {
     'covid': [
         'month', 'year', 'name', 'dob', 'sex', 'nationality', 'district', 'address',
-        'status', 'has_cough', 'has_fever', 'has_shortness_of_breath'
+        'status', 'has_cough', 'has_fever', 'has_shortness_of_breath', 'msisdn'
     ]
 }
 
