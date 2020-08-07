@@ -192,9 +192,9 @@ def update_symptoms_task(request_args, request_json, districts):
             orgUnitId = ids['uid']
             eventPayloadList = compose_event_payload_list(
                     flowdata, orgUnitId, flowdata_obj.instanceid)
-            # print("====>", eventPayloadList)
+            print("Signs ====>", eventPayloadList)
             eventsEndpoint = DHIS2_EVENTS_ENDPOINT
             # create the events
             for p in eventPayloadList:
                 resp = post_data_to_dhis2(eventsEndpoint, json.dumps(p))
-                # print(resp.json())
+                print(resp.json())
