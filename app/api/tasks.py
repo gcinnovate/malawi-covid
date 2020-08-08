@@ -32,7 +32,10 @@ def save_flowdata(
         request_json['results'], INDICATORS, report_type)
 
     if 'msisdn' not in flowdata:
-        flowdata['msisdn'] = msisdn
+        flowdata['msisdn'] = msisdn.replace('tel:', '')
+    else:
+        m = flowdata['msisdn']
+        flowdata['msisdn'] = m.replace('tel:', '')
 
     # get district from flowdata
     district = flowdata.get('district').title()
