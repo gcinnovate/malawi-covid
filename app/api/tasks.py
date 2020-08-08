@@ -184,7 +184,14 @@ def update_symptoms_task(request_args, request_json, districts):
     flowdata = get_indicators_from_rapidpro_results(
         request_json['results'], INDICATORS, report_type)
 
+    if 'msisdn' not in flowdata:
+        flowdata['msisdn'] = msisdn.replace('tel:', '')
+    else:
+        m = flowdata['msisdn']
+        flowdata['msisdn'] = m.replace('tel:', '')
+
     ids = districts.get(district)
+
     if ids:
         flowdata_obj = FlowData.query.filter_by(
             report_type=report_type, msisdn=msisdn).first()
