@@ -1296,7 +1296,7 @@
               "uuid": "9975eba9-8630-418a-9652-771639373a87",
               "headers": {
                 "Accept": "application/json",
-                "Authorization": "Basic aXZhbnVwc29uc0BnbWFpbC5jb206Y292aWQyMDIw",
+                "Authorization": "",
                 "Content-Type": "application/json"
               },
               "type": "call_webhook",
@@ -2799,7 +2799,7 @@
             {
               "uuid": "3f8c1a90-90a3-4e3b-9a25-8cca6759d706",
               "headers": {
-                "Authorization": "Basic aXZhbnVwc29uc0BnbWFpbC5jb206Y292aWQyMDIw"
+                "Authorization": ""
               },
               "type": "call_webhook",
               "url": "http://malawi-covid.gcinnovate.com/api/v1/stats?global=true",
@@ -4077,7 +4077,7 @@
             {
               "uuid": "56ee3c86-9a04-429b-a22e-032ade1f7592",
               "headers": {
-                "Authorization": "Basic aXZhbnVwc29uc0BnbWFpbC5jb206Y292aWQyMDIw"
+                "Authorization": ""
               },
               "type": "call_webhook",
               "url": "http://malawi-covid.gcinnovate.com/api/v1/notify?name=@contact.name&phone=@contact.urn&status=@contact.fields.status&district=@contact.fields.district&address=@contact.fields.address",
@@ -4345,7 +4345,7 @@
             {
               "uuid": "27d53a63-3eef-44da-bfc7-4f6a90a465cc",
               "headers": {
-                "Authorization": "Basic aXZhbnVwc29uc0BnbWFpbC5jb206Y292aWQyMDIw",
+                "Authorization": "",
                 "Content-Type": "application/json"
               },
               "type": "call_webhook",
