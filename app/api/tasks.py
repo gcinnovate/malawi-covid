@@ -34,7 +34,7 @@ def save_flowdata(
     if 'msisdn' not in flowdata:
         flowdata['msisdn'] = msisdn.replace('tel:', '')
     else:
-        m = flowdata['msisdn']
+        m = '{0}'.format(flowdata['msisdn'])
         flowdata['msisdn'] = m.replace('tel:', '')
 
     # get district from flowdata
@@ -187,7 +187,7 @@ def update_symptoms_task(request_args, request_json, districts):
     if 'msisdn' not in flowdata:
         flowdata['msisdn'] = msisdn.replace('tel:', '')
     else:
-        m = flowdata['msisdn']
+        m = '{0}'.format(flowdata['msisdn'])
         flowdata['msisdn'] = m.replace('tel:', '')
 
     ids = districts.get(district)
