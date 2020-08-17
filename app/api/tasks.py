@@ -191,6 +191,9 @@ def update_symptoms_task(request_args, request_json, districts):
         flowdata['msisdn'] = m.replace('tel:', '')
 
     ids = districts.get(district)
+    # debug
+    print("Update Symptoms: MSISDN:{0}, District: {1}, IDS: {2}".format(
+        flowdata['msisdn'], district, ids))
 
     if ids:
         flowdata_obj = FlowData.query.filter_by(
