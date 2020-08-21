@@ -23,6 +23,8 @@ MONTHS_DICT = dict((v, k) for k, v in enumerate(calendar.month_name))
 def save_flowdata(
         request_args, request_json, districts):
     msisdn = request_args.get('msisdn')
+    if msisdn:
+        msisdn = msisdn.replace('tel:', '').strip()
     report_type = request_args.get('report_type')
     if not request_json:
         logger.info("EMPTY Post Data from RapidPro! [Report: {0}, MSISDN: {1}]".format(report_type, msisdn))
@@ -32,7 +34,7 @@ def save_flowdata(
         request_json['results'], INDICATORS, report_type)
 
     if 'msisdn' not in flowdata:
-        flowdata['msisdn'] = msisdn.replace('tel:', '')
+        flowdata['msisdn'] = msisdn
     else:
         m = '{0}'.format(flowdata['msisdn'])
         flowdata['msisdn'] = m.replace('tel:', '')
@@ -175,6 +177,8 @@ def send_sms_notification(message, recipients=[]):
 @celery.task(name="update_symptoms_task")
 def update_symptoms_task(request_args, request_json, districts):
     msisdn = request_args.get('msisdn')
+    if msisdn:
+        msisdn = msisdn.replace('tel:', '').strip()
     report_type = request_args.get('report_type')
     district = request_args.get('district').title()
     if not request_json:
@@ -185,7 +189,7 @@ def update_symptoms_task(request_args, request_json, districts):
         request_json['results'], INDICATORS, report_type)
 
     if 'msisdn' not in flowdata:
-        flowdata['msisdn'] = msisdn.replace('tel:', '')
+        flowdata['msisdn'] = msisdn
     else:
         m = '{0}'.format(flowdata['msisdn'])
         flowdata['msisdn'] = m.replace('tel:', '')
