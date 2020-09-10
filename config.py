@@ -66,7 +66,7 @@ CASE_MESSAGE_TEMPLATE = (
 INDICATORS = {
     'covid': [
         'month', 'year', 'name', 'dob', 'sex', 'nationality', 'district', 'address',
-        'status', 'has_cough', 'has_fever', 'has_shortness_of_breath', 'msisdn'
+        'status', 'has_cough', 'has_fever', 'has_shortness_of_breath', 'msisdn', 'data_source',
     ]
 }
 
@@ -106,6 +106,7 @@ DHIS2_TRACKER_PROGRAM_CONF = {
             'address': 'FK2vvK7Po6u',  # Physical Addree
             'msisdn': 'mJLeZibUwXp',  # Phone Number
             'nationality': 'vSMq15P3jLx',
+            'data_source': 'ogRBM7R2N4o'
         },
         'stages': {
             'signs_and_symptoms': {
