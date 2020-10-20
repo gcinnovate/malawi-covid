@@ -13,22 +13,31 @@ import requests
 db = create_engine(DISPATCHER2_DATABASE_URI)
 
 
+def get_key(my_dict, val):
+    for key, value in my_dict.items():
+         if val == value:
+             return key
+    return ""
+
+
 def post_data_to_dhis2(url, data, params={}, method="POST"):
     user_pass = '{0}:{1}'.format(DHIS2_USERNAME, DHIS2_PASSWORD)
     coded = base64.b64encode(user_pass.encode())
+    headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic ' + coded.decode()
+    }
     if method == "PUT":
         payload = json.loads(data).pop('enrollments')
         response = requests.put(
-            url, data=json.dumps(payload), headers={
-                'Content-Type': 'application/json',
-                'Authorization': 'Basic ' + coded.decode()},
+            url, data=json.dumps(payload), headers=headers,
             verify=False, params=params
         )
+    elif method == "GET":
+        response = requests.get(url, headers=headers, verify=False)
     else:
         response = requests.post(
-            url, data=data, headers={
-                'Content-Type': 'application/json',
-                'Authorization': 'Basic ' + coded.decode()},
+            url, data=data, headers=headers,
             verify=False, params=params
         )
     return response
@@ -132,3 +141,20 @@ def get_tracked_entity_instance_reference(responseObj):
     except Exception as e:
         print(str(e))
     return ''
+
+
+def get_tracked_entity_instance_details(responseObj):
+    """returns demorgraphic details for a TEI from DHIS2 response"""
+    try:
+        resp = {}
+        # orgUnit = responseObj.get("orgUnit", "")
+        attributes = responseObj.get("attributes", [])
+        for attr in attributes:
+            if attr['attribute'] in programConf['attributes'].values():
+                key = get_key(programConf['attributes'], attr['attribute'])
+                resp[key] = attr['value']
+        return resp
+
+    except Exception as e:
+        print(str(e))
+    return None

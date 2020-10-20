@@ -1,11 +1,12 @@
 from flask import jsonify, request
-from .. import db
+from .. import db, DHIS2_TEI_ENDPOINT
 from ..models import FlowData, Location
 from . import api
 # from .decorators import permission_required
 # from .errors import forbidden
-from .. import redis_client
+# from .. import redis_client
 from .tasks import save_flowdata, update_symptoms_task
+from ..utils import post_data_to_dhis2, get_tracked_entity_instance_details
 
 @api.route('/flowdata')
 def get_flowdata():
@@ -61,5 +62,27 @@ def update_symptoms():
     update_symptoms_task.delay(request.args, request.json, districts)
 
     return jsonify({'message': 'success'})
+
+
+
+@api.route('/gettei', methods=['GET'])
+def get_tracked_entity_instance():
+    tei = request.args.get('tei', '')
+    # [0-9a-zA-Z]{11}
+    url = DHIS2_TEI_ENDPOINT + "/{}.json?fields=orgUnit,attributes[attribute,value]".format(tei)
+    # print(url)
+
+    try:
+        resp = post_data_to_dhis2(url, None, method="GET")
+        responseObj = resp.json()
+        # print("===>", responseObj)
+        registrationInfo = get_tracked_entity_instance_details(responseObj)
+        if registrationInfo:
+            print(registrationInfo)
+            return jsonify(registrationInfo)
+    except Exception as e:
+        print(str(e))
+    return jsonify({'message': 'success'})
+
 
 

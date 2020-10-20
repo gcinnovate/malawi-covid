@@ -12,6 +12,7 @@ from datetime import datetime
 import calendar
 import requests
 import json
+import re
 from celery.utils.log import get_task_logger
 
 logger = get_task_logger(__name__)
@@ -55,6 +56,9 @@ def save_flowdata(
 
     month_str = "{0}-{1:02}".format(year, month)
 
+    # trackedEntityInstance ID
+    tei = flowdata.get('tei', '').strip()
+
     # redis_client.districts set using @app.before_first_request
     ids = districts.get(district)
     if ids:
@@ -78,12 +82,16 @@ def save_flowdata(
                     url_suffix = ""
 
             else:
+
                 value_record = FlowData(
                     msisdn=msisdn, district=district_id, region=region_id,
                     report_type=report_type, month=month_str, year=year, values=flowdata)
+                if tei and re.match(r'[0-9a-zA-Z]{11}', tei):
+                    url_suffix = "/{}".format(tei)
+                    value_record.instanceid = tei
+                else:
+                    url_suffix = ""
                 db.session.add(value_record)
-
-                url_suffix = ""
 
             try:
                 db.session.commit()
